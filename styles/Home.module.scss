@@ -1,0 +1,43 @@
+.container {
+  .content {
+    padding: 50px;
+    display: flex;
+    gap: 50px;
+    .left {
+      .forms {
+        display: flex;
+        gap: 10px;
+        .form {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          .form__title {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+          }
+        }
+      }
+      .buttons {
+        display: flex;
+        gap: 10px;
+        margin: 20px 0;
+      }
+    }
+    .right {
+      flex: 1;
+      .title {
+        font-size: 1.5em;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: black;
+      }
+      p {
+        width: 100%;
+        word-break: break-all;
+        color: #979797;
+        font-size: 0.9em;
+      }
+    }
+  }
+}
