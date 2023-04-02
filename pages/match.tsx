@@ -4,11 +4,11 @@ import { connectToSocket } from "../lib";
 
 export default function Match() {
   useEffect(() => {
-    connectToSocket(
+    /*connectToSocket(
       () => {},
       () => {},
       () => {}
-    );
+    );*/
   }, []);
 
   return (

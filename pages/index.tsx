@@ -6,6 +6,7 @@ import { Button } from "@/components/button/Button";
 import { getAcir } from "@/lib/proofs";
 import { hashSet } from "@/lib";
 import { Alert } from "@/components/alert/Alert";
+import Ethers from "../lib/ethers";
 
 export default function Home() {
   const [formA, setFormA] = useState(["", "", "", "", "", ""]);
@@ -54,6 +55,7 @@ export default function Home() {
   };
 
   const onGenerateProof = async () => {
+    setProof(undefined);
     // only launch if we do have an acir to calculate the proof from
     const acir = await getAcir();
     setAcir(acir);
@@ -122,6 +124,18 @@ export default function Home() {
             error: false,
           });
           setVerifyingProof(false);
+
+          try {
+            // Verifies proof on-chain
+            const ethers = new Ethers();
+            const ver = await ethers.contract.verify(proof);
+            if (ver) {
+              setAlert({
+                message: "Proof double checked on-chain!",
+                error: true,
+              });
+            }
+          } catch (error) {}
         }
       };
 
