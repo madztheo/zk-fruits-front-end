@@ -6,12 +6,7 @@ import initializeAztecBackend from "@noir-lang/aztec_backend";
 export const compileCircuit = async () => {
   await initNoirWasm();
 
-  return await fetch(
-    new URL(
-      "../../matching-fruits-nargo/check-sets/src/main.nr",
-      import.meta.url
-    )
-  )
+  return await fetch(new URL("../noir/main.nr", import.meta.url))
     .then((r) => r.text())
     .then((code) => {
       initialiseResolver((id: any) => {

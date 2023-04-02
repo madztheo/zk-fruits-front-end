@@ -158,6 +158,7 @@ export default function Home() {
                 {formA.map((item, index) => (
                   <Input
                     key={index}
+                    placeholder="Enter a fruit you like"
                     containerClassName={styles.input__container}
                     value={item}
                     onChange={(val: string) => {
@@ -175,6 +176,7 @@ export default function Home() {
                 {formB.map((item, index) => (
                   <Input
                     key={index}
+                    placeholder="Enter a fruit you like"
                     containerClassName={styles.input__container}
                     value={item}
                     onChange={(val: string) => {
