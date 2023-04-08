@@ -2,6 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { acir_read_bytes, compile } from "@noir-lang/noir_wasm";
 import initializeAztecBackend from "@noir-lang/aztec_backend";
+// @ts-ignore
 import { initialiseResolver } from "@noir-lang/noir-source-resolver";
 import fs from "fs";
 import path from "path";
