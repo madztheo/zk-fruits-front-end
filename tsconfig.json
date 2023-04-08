@@ -9,7 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "CommonJS",
+    "module": "esnext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -23,5 +23,12 @@
     }
   },
   "exclude": ["dist", "node_modules"],
-  "include": ["./test", "./src", "./scripts"]
+  "include": [
+    "./test",
+    "./src",
+    "./scripts",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

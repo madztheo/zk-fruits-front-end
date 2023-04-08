@@ -1,10 +1,10 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/input/Input";
 import { Button } from "@/components/button/Button";
 import { getAcir } from "@/lib/proofs";
-import { hashSet } from "@/lib";
+import { getPedersenHash, hashSet } from "@/lib";
 import { Alert } from "@/components/alert/Alert";
 import Ethers from "../lib/ethers";
 
@@ -14,7 +14,7 @@ export default function Home() {
   const [generatingProof, setGeneratingProof] = useState(false);
   const [verifyingProof, setVerifyingProof] = useState(false);
   const [acir, setAcir] = useState();
-  const [proof, setProof] = useState();
+  const [proof, setProof] = useState<Uint8Array>();
   const [alert, setAlert] = useState({
     message: "",
     error: false,
@@ -86,17 +86,23 @@ export default function Home() {
       };
 
       // sending the acir and input to the worker
+      const setA = hashSet(
+        new Set(formA.filter((x) => !!x)),
+        process.env.NEXT_PUBLIC_SECRET_KEY as string
+      );
+      const setB = hashSet(
+        new Set(formB.filter((x) => !!x)),
+        process.env.NEXT_PUBLIC_SECRET_KEY as string
+      );
+      const commitmentA = await getPedersenHash(setA);
+      const commitmentB = await getPedersenHash(setB);
       worker.postMessage({
         acir,
         input: {
-          setA: hashSet(
-            new Set(formA.filter((x) => !!x)),
-            process.env.NEXT_PUBLIC_SECRET_KEY as string
-          ),
-          setB: hashSet(
-            new Set(formB.filter((x) => !!x)),
-            process.env.NEXT_PUBLIC_SECRET_KEY as string
-          ),
+          commitmentA,
+          commitmentB,
+          setA,
+          setB,
         },
       });
     }
@@ -225,7 +231,9 @@ export default function Home() {
           {proof && (
             <div className={styles.right}>
               <p className={styles.title}>Proof</p>
-              <p className={styles.proof}>{proof}</p>
+              <p className={styles.proof}>
+                {Buffer.from(proof).toString("hex")}
+              </p>
             </div>
           )}
         </div>

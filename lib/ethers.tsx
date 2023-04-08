@@ -43,7 +43,7 @@ class Ethers {
             method: "wallet_switchEthereumChain",
             params: [{ chainId: `0x${addresses.chainId.toString(16)}` }],
           });
-        } catch (error) {
+        } catch (error: any) {
           console.error("Error switching network:", error);
           if (error.code === 4902) {
             console.log("Need to add network");
